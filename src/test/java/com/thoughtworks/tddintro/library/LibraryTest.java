@@ -59,7 +59,17 @@ public class LibraryTest {
     @Test
     public void shouldPrintBothBookTitlesWhenThereAreTwoBooks() {
 
-        // implement me
+        String firstTitle = "First Book Title";
+        String secondTitle = "Second Book Title";
+
+        books.add(firstTitle);
+        books.add(secondTitle);
+
+        library.listBooks();
+
+        verify(printStream).println("Second Book Title");
+        verify(printStream).println("First Book Title");
+
     }
 
     /*
