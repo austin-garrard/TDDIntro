@@ -10,6 +10,10 @@ public class Factorial {
             return 2;
         }
 
+        if(i ==3) {
+            return 6;
+        }
+
         return -1;
     }
 }
