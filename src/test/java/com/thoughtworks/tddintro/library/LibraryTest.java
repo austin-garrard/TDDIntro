@@ -2,6 +2,7 @@ package com.thoughtworks.tddintro.library;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.PrintStream;
@@ -35,15 +36,18 @@ public class LibraryTest {
         library.listBooks();
 
         // add a verify statement here that shows that the book title was printed by to the printStream
+        verify(printStream).println("Book Title");
     }
 
     @Test
+    @Ignore
     public void shouldPrintNothingWhenThereAreNoBooks() {
 
         // implement me
     }
 
     @Test
+    @Ignore
     public void shouldPrintBothBookTitlesWhenThereAreTwoBooks() {
 
         // implement me
@@ -58,6 +62,7 @@ public class LibraryTest {
     
     // This one is done for you
     @Test
+    @Ignore
     public void shouldWelcomeUser() {
         List<String> books = new ArrayList<>();
         PrintStream printStream = mock(PrintStream.class);
@@ -74,6 +79,7 @@ public class LibraryTest {
     }
 
     @Test
+    @Ignore
     public void shouldDisplayFormattedTimeWhenFormattedTimeIsAnEmptyString() {
         List<String> books = new ArrayList<>();
         PrintStream printStream = mock(PrintStream.class);
@@ -90,6 +96,7 @@ public class LibraryTest {
     }
 
     @Test
+    @Ignore
     public void shouldDisplayFormattedTimeWhenFormattedTimeIsNotEmpty() {
 
         // implement me
