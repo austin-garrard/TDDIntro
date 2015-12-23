@@ -5,16 +5,18 @@ package com.thoughtworks.tddintro.accountbalance;
  */
 public class Account {
 
-    public Account(int initialBalance) {
+    private int balance;
 
+    public Account(int initialBalance) {
+        this.balance = initialBalance;
     }
 
     public void deposit(int amount) {
-
+        this.balance += amount;
     }
 
     public int balance() {
 
-        return -1;
+        return this.balance;
     }
 }
