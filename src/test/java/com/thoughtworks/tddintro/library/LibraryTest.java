@@ -10,9 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Matchers.contains;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class LibraryTest {
 
@@ -40,10 +38,16 @@ public class LibraryTest {
     }
 
     @Test
-    @Ignore
     public void shouldPrintNothingWhenThereAreNoBooks() {
 
-        // implement me
+        List<String> books = new ArrayList<>();
+        PrintStream printStream = mock(PrintStream.class);
+        Library library = new Library(books, printStream, null);
+
+        library.listBooks();
+
+        verifyZeroInteractions(printStream);
+
     }
 
     @Test
@@ -75,7 +79,7 @@ public class LibraryTest {
         
         library.welcome(time);
         
-        verify(printStream).println(contains("Welcome"));
+        verifyZeroInteractions(printStream);
     }
 
     @Test
