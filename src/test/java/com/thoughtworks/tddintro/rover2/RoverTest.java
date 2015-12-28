@@ -25,4 +25,26 @@ public class RoverTest {
         assertThat(rover.getYPos(), is(initialYPos));
         assertThat(rover.getOrientation(), is(initialOrientation));
     }
+
+    @Test
+    public void shouldUpdateXPosition() {
+        rover.setXPos(65);
+        assertThat(rover.getXPos(), is(65));
+        rover.setXPos(-1);
+        assertThat(rover.getXPos(), is(-1));
+    }
+
+    @Test
+    public void shouldUpdateYPosition() {
+        rover.setYPos(65);
+        assertThat(rover.getYPos(), is(65));
+        rover.setYPos(-1);
+        assertThat(rover.getYPos(), is(-1));
+    }
+
+    @Test
+    public void shouldUpdateOrientation() {
+        rover.setOrientation(Rover.Orientation.E);
+        assertThat(rover.getOrientation(), is(Rover.Orientation.E));
+    }
 }
