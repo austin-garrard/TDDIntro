@@ -15,6 +15,7 @@ import static org.mockito.Mockito.*;
 public class RoverControllerTest {
 
     private RoverController roverController;
+    private Rover myRover;
     private List<Rover> rovers;
 
     @Before
@@ -23,11 +24,13 @@ public class RoverControllerTest {
 
         rovers = new ArrayList<>();
         //valid rovers
+        myRover = new Rover(5, 5, Rover.Orientation.W);
+        rovers.add(myRover);
         rovers.add(new Rover(0, 0, Rover.Orientation.N));
         rovers.add(new Rover(10, 0, Rover.Orientation.S));
         rovers.add(new Rover(0, 10, Rover.Orientation.W));
         rovers.add(new Rover(10, 10, Rover.Orientation.E));
-        rovers.add(new Rover(5, 5, Rover.Orientation.W));
+
 
 
         roverController = new RoverController(map);
@@ -57,10 +60,46 @@ public class RoverControllerTest {
     }
 
     @Test
-    @Ignore
-    public void shouldMoveARoverOneUnitForwardInTheDirectionItIsFacingWhenAMoveCommandIsExecuted() {
+    public void shouldMoveARoverOneUnitNorthIfItIsFacingNorth() {
+        int originalYPos = myRover.getYPos();
 
+        myRover.setOrientation(Rover.Orientation.N);
+        roverController.moveRover(myRover);
+
+        assertThat(myRover.getYPos(), is(originalYPos+1));
     }
+
+    @Test
+    public void shouldMoveARoverOneUnitEastIfItIsFacingEast() {
+        int originalXPos = myRover.getXPos();
+
+        myRover.setOrientation(Rover.Orientation.E);
+        roverController.moveRover(myRover);
+
+        assertThat(myRover.getXPos(), is(originalXPos+1));
+    }
+
+    @Test
+    public void shouldMoveARoverOneUnitSouthIfItIsFacingSouth() {
+        int originalYPos = myRover.getYPos();
+
+        myRover.setOrientation(Rover.Orientation.S);
+        roverController.moveRover(myRover);
+
+        assertThat(myRover.getYPos(), is(originalYPos-1));
+    }
+
+    @Test
+    public void shouldMoveARoverOneUnitWestIfItIsFacingWest() {
+        int originalXPos = myRover.getXPos();
+
+        myRover.setOrientation(Rover.Orientation.W);
+        roverController.moveRover(myRover);
+
+        assertThat(myRover.getXPos(), is(originalXPos-1));
+    }
+
+
 
     @Test
     @Ignore

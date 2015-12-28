@@ -26,6 +26,20 @@ public class RoverController {
         }
     }
 
+    public void moveRover(Rover rover) {
+        int deltaX = 0;
+        int deltaY = 0;
+        switch(rover.getOrientation()) {
+            case N: deltaY++; break;
+            case E: deltaX++; break;
+            case S: deltaY--; break;
+            case W: deltaX--; break;
+        }
+
+        rover.setXPos(rover.getXPos() + deltaX);
+        rover.setYPos(rover.getYPos() + deltaY);
+    }
+
     private boolean validCoordinates(int xPos, int yPos) {
         return coordinatesAreWithinBoundaries(xPos, yPos)
                 && coordinatesAreUnique(xPos, yPos);
