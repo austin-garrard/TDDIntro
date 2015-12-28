@@ -17,9 +17,38 @@ import java.util.Scanner;
  */
 public class RoverFileParser {
 
-    public static boolean parseRover(String fileName, ArrayList<Rover> roverList, ArrayList<String> commandsList) {
+
+
+    private ArrayList<Rover> roverList;
+    private ArrayList<String> commandsList;
+    GridMap map;
+    boolean parseFailure;
+
+    public RoverFileParser(String fileName) {
+        roverList = new ArrayList<>();
+        commandsList = new ArrayList<>();
+        parseFailure = parseRover(fileName);
+    }
+
+    public ArrayList<Rover> getRoverList() {
+        return roverList;
+    }
+
+    public ArrayList<String> getCommandsList() {
+        return commandsList;
+    }
+
+    public GridMap getMap() {
+        return map;
+    }
+
+    public boolean wasParseFailure() {
+        return parseFailure;
+    }
+
+
+    private boolean parseRover(String fileName) {
         Scanner fileScanner;
-        GridMap map;
         Scanner lineScanner;
         try
         {

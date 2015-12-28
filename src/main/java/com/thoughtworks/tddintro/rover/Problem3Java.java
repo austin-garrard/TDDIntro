@@ -34,9 +34,14 @@ public class Problem3Java
 
         /** INIT **/
         String fileName = args[0];
-        ArrayList<Rover> roverList = new ArrayList<>();
-        ArrayList<String> commandsList = new ArrayList<>();
-        if (RoverFileParser.parseRover(fileName, roverList, commandsList)) return;
+        RoverFileParser parser = new RoverFileParser(fileName);
+        if(parser.wasParseFailure()) {
+            return;
+        }
+        GridMap map = parser.getMap();
+        ArrayList<Rover> roverList = parser.getRoverList();
+        ArrayList<String> commandsList = parser.getCommandsList();
+
 
 
         /** GIVE COMMANDS TO THE ROVERS **/
