@@ -170,7 +170,7 @@ public class RoverControllerTest {
     }
 
     @Test
-    public void shouldNotMoveARoverIfTheResultingPositionWouldBeOutsideTheBoundariesOfTheMap() {
+    public void shouldNotMoveARoverIfTheResultingCoordinatesAreOutsideTheBoundariesOfTheMap() {
         myRover.setOrientation(Rover.Orientation.W);
 
         for(int i = 0; i < 6; i++) {
