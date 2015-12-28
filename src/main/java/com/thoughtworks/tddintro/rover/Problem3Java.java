@@ -36,7 +36,7 @@ public class Problem3Java
         String fileName = args[0];
         ArrayList<Rover> roverList = new ArrayList<>();
         ArrayList<String> commandsList = new ArrayList<>();
-        if (parseRover(fileName, roverList, commandsList)) return;
+        if (RoverFileParser.parseRover(fileName, roverList, commandsList)) return;
 
 
         /** GIVE COMMANDS TO THE ROVERS **/
@@ -82,60 +82,5 @@ public class Problem3Java
         }
     }
 
-    private static boolean parseRover(String fileName, ArrayList<Rover> roverList, ArrayList<String> commandsList) {
-        Scanner fileScanner;
-        GridMap map;
-        Scanner lineScanner;
-        try
-        {
-            fileScanner = new Scanner(new BufferedReader(new FileReader(fileName)));
 
-            //read the grid
-            int xMax = fileScanner.nextInt();
-            int yMax = fileScanner.nextInt();
-            if(xMax < 0 || yMax < 0)
-            {
-                System.out.println("Invalid grid dimenstions. Terminating.");
-                return true;
-            }
-            map = new GridMap(xMax, yMax);
-
-            fileScanner.nextLine();
-            while(fileScanner.hasNextLine())
-            {
-                //read the rover
-                lineScanner = new Scanner(fileScanner.nextLine());
-                int xPos = lineScanner.nextInt();
-                int yPos = lineScanner.nextInt();
-                Rover.Orientation orientation = Rover.Orientation.valueOf(lineScanner.next());
-                Rover rover = new Rover(xPos, yPos, orientation, map);
-                roverList.add(rover);
-                if(!map.addRover(rover))
-                {
-                    System.out.println("Invalid starting position. Terminating.");
-                    return true;
-                }
-
-                //read the commands
-                commandsList.add(fileScanner.nextLine());
-            }
-
-        }
-        catch(IOException e)
-        {
-            System.out.format("Invalid input file '%s'. Terminating.\n", fileName);
-            return true;
-        }
-        catch(InputMismatchException e)
-        {
-            System.out.format("Invalid input file '%s'. Terminating.\n", fileName);
-            return true;
-        }
-        catch(NoSuchElementException e)
-        {
-            System.out.format("Invalid input file '%s'. Terminating.\n", fileName);
-            return true;
-        }
-        return false;
-    }
 }
