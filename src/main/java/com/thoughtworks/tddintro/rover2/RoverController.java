@@ -27,7 +27,19 @@ public class RoverController {
     }
 
     private boolean validCoordinates(int xPos, int yPos) {
+        return coordinatesAreWithinBoundaries(xPos, yPos)
+                && coordinatesAreUnique(xPos, yPos);
+    }
+
+    private boolean coordinatesAreWithinBoundaries(int xPos, int yPos) {
         return xPos >= 0 && xPos <= this.map.getXMax() && yPos >= 0 && yPos <= this.map.getYMax();
+    }
+
+    private boolean coordinatesAreUnique(int xPos, int yPos) {
+        for(Rover rover : rovers)
+            if(rover.getXPos() == xPos || rover.getYPos() == yPos)
+                return false;
+        return true;
     }
 
     public int numRovers() {

@@ -34,7 +34,7 @@ public class RoverControllerTest {
 
     @Test
     public void shouldStoreRoversThatAreWithinTheBoundariesOfTheMap () {
-        //invalid rovers: boundaries
+        //invalid rovers: outside of boundaries
         roverController.addRover(new Rover(-1, 1, Rover.Orientation.N));
         roverController.addRover(new Rover(11, 5, Rover.Orientation.N));
         roverController.addRover(new Rover(3, -4, Rover.Orientation.N));
@@ -44,12 +44,11 @@ public class RoverControllerTest {
     }
 
     @Test
-    @Ignore
     public void shouldStoreRoversThatHaveUniqueCoordinates() {
-        //invalid rovers: unique coordinates
-        rovers.add(new Rover(1, 1, Rover.Orientation.N));
-        rovers.add(new Rover(5, 5, Rover.Orientation.N));
-        rovers.add(new Rover(9, 2, Rover.Orientation.N));
+        //invalid rovers: non-unique coordinates
+        roverController.addRover(new Rover(0, 0, Rover.Orientation.N));
+        roverController.addRover(new Rover(5, 5, Rover.Orientation.N));
+        roverController.addRover(new Rover(10, 2, Rover.Orientation.N));
 
         assertThat(roverController.numRovers(), is(3));
     }
