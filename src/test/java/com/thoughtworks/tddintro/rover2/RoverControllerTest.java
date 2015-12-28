@@ -181,9 +181,24 @@ public class RoverControllerTest {
     }
 
     @Test
-    @Ignore
-    public void shouldExecuteAMoveCommandIfTheResultingCoordinatesAreUnique() {
+    public void shouldNotMoveARoverIfTheResultingCoordinatesAreNotUnique() {
+        myRover.setOrientation(Rover.Orientation.W);
 
+        //move to the left boundary
+        for(int i = 0; i < 5; i++) {
+            roverController.moveRover(myRover);
+        }
+
+        //face north
+        roverController.rotateRoverRight(myRover);
+
+        //attempt to move to the top left corner
+        for(int i = 0; i < 5; i++) {
+            roverController.moveRover(myRover);
+        }
+
+        assertThat(myRover.getXPos(), is(0));
+        assertThat(myRover.getYPos(), is(9));
     }
 
 
