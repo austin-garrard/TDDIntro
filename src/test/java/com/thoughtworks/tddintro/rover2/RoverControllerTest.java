@@ -24,8 +24,11 @@ public class RoverControllerTest {
         rovers = new ArrayList<>();
         //valid rovers
         rovers.add(new Rover(0, 0, Rover.Orientation.N));
+        rovers.add(new Rover(10, 0, Rover.Orientation.S));
+        rovers.add(new Rover(0, 10, Rover.Orientation.W));
+        rovers.add(new Rover(10, 10, Rover.Orientation.E));
         rovers.add(new Rover(5, 5, Rover.Orientation.W));
-        rovers.add(new Rover(10, 2, Rover.Orientation.S));
+
 
         roverController = new RoverController(map);
         roverController.addRovers(rovers);
@@ -48,9 +51,9 @@ public class RoverControllerTest {
         //invalid rovers: non-unique coordinates
         roverController.addRover(new Rover(0, 0, Rover.Orientation.N));
         roverController.addRover(new Rover(5, 5, Rover.Orientation.N));
-        roverController.addRover(new Rover(10, 2, Rover.Orientation.N));
+        roverController.addRover(new Rover(10, 0, Rover.Orientation.N));
 
-        assertThat(roverController.numRovers(), is(3));
+        assertThat(roverController.numRovers(), is(rovers.size()));
     }
 
     @Test
