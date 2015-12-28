@@ -58,6 +58,41 @@ public class ParserTest {
         assertThat(rovers.size(), is(0));
     }
 
+    @Test
+    public void shouldReturnGridMapWhenFileHasBeenSuccessfullyParsed() {
+        parser.parse(defaultFileName);
+
+        GridMap map = parser.getGridMap();
+
+        assertNotNull(map);
+    }
+
+    @Test
+    public void shouldCorrectlyParseGridMapXMax() {
+        parser.parse(defaultFileName);
+
+        GridMap map = parser.getGridMap();
+
+        assertThat(map.getXMax(), is(5));
+    }
+
+    @Test
+    public void shouldCorrectlyParseGridMapYMax() {
+        parser.parse(defaultFileName);
+
+        GridMap map = parser.getGridMap();
+
+        assertThat(map.getYMax(), is(10));
+    }
+
+
+
+    @Test
+    @Ignore
+    public void shouldReturnNullGridMapWhenErrorsOccurDuringParse() {
+
+    }
+
 
 
 }

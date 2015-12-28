@@ -1,5 +1,12 @@
 package com.thoughtworks.tddintro.rover2;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +22,18 @@ public class Parser {
     }
 
     public void parse(String fileName) {
+        Scanner fileScanner;
 
+        try {
+            fileScanner = new Scanner(new BufferedReader(new FileReader(fileName)));
+        }
+        catch(FileNotFoundException e) {
+            return;
+        }
+
+        int xMax = fileScanner.nextInt();
+        int yMax = fileScanner.nextInt();
+        map = new GridMap(xMax, yMax);
     }
 
     public GridMap getGridMap() {
