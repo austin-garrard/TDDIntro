@@ -32,60 +32,28 @@ public class Problem3Java
             return;
         }
 
-        /** INIT **/
         String fileName = args[0];
         RoverFileParser parser = new RoverFileParser(fileName);
         if(parser.wasParseFailure()) {
             return;
         }
+
         GridMap map = parser.getMap();
         ArrayList<Rover> roverList = parser.getRoverList();
         ArrayList<String> commandsList = parser.getCommandsList();
 
-
-
-        /** GIVE COMMANDS TO THE ROVERS **/
-        for(int i = 0; i < roverList.size(); i++)
-        {
-            Rover rover = roverList.get(i);
-            String commands = commandsList.get(i);
-            for(int c = 0; c < commands.length(); c++)
-            {
-                char command = commands.charAt(c);
-                //rotate
-                if(command == 'L' || command == 'R')
-                {
-                    if(!rover.rotate(command))
-                    {
-                        System.out.println("Invalid rotate command. Terminating.");
-                        return;
-                    }
-                }
-                //move
-                else if(command == 'M')
-                {
-                    if(!rover.move())
-                    {
-                        System.out.println("Invalid move command. Terminating.");
-                        return;
-                    }
-                }
-                //invalid
-                else
-                {
-                    System.out.format("Invalid input file '%s'. Terminating.\n", fileName);
-                    return;
-                }
-            }
+        RoverController roverController = new RoverController(map, roverList);
+        if (roverController.executeCommands(commandsList)) {
+            return;
         }
 
-
-        /** PRINT THE FINAL STATE **/
         for(Rover rover : roverList)
         {
             System.out.println(rover.toString());
         }
     }
+
+
 
 
 }
