@@ -201,6 +201,41 @@ public class RoverControllerTest {
         assertThat(myRover.getYPos(), is(9));
     }
 
+    @Test
+    public void shouldNotifyCallerIfAnAttemptedMoveWasNotMadeDueToResultingCoordinatesOutsideTheBoundariesOfTheMap() {
+        myRover.setOrientation(Rover.Orientation.W);
+
+        for(int i = 0; i < 5; i++) {
+            roverController.moveRover(myRover);
+        }
+
+        RoverController.Flag result = roverController.moveRover(myRover);
+
+        assertThat(result, is(RoverController.Flag.COORD_OUT_OF_BOUNDS));
+    }
+
+    @Test
+    public void shouldNotifyCallerIfAnAttemptedMoveWasNotMadeDueToResultingCoordinatesNotUnique() {
+        myRover.setOrientation(Rover.Orientation.W);
+
+        //move to the left boundary
+        for(int i = 0; i < 5; i++) {
+            roverController.moveRover(myRover);
+        }
+
+        //face north
+        roverController.rotateRoverRight(myRover);
+
+        //attempt to move to the top left corner
+        for(int i = 0; i < 4; i++) {
+            roverController.moveRover(myRover);
+        }
+
+        RoverController.Flag result = roverController.moveRover(myRover);
+
+        assertThat(result, is(RoverController.Flag.COORD_NOT_UNIQUE));
+    }
+
 
     @Test
     @Ignore

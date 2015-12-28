@@ -6,6 +6,10 @@ import java.util.List;
 
 public class RoverController {
 
+    public enum Flag {
+        SUCCESS, COORD_OUT_OF_BOUNDS, COORD_NOT_UNIQUE
+    }
+
     private GridMap map;
     private List<Rover> rovers;
 
@@ -21,12 +25,13 @@ public class RoverController {
     }
 
     public void addRover(Rover rover) {
-        if(validCoordinates(rover.getXPos(), rover.getYPos())) {
+        Flag result = validCoordinates(rover.getXPos(), rover.getYPos());
+        if(result == Flag.SUCCESS) {
             rovers.add(rover);
         }
     }
 
-    public void moveRover(Rover rover) {
+    public Flag moveRover(Rover rover) {
         int deltaX = 0;
         int deltaY = 0;
 
@@ -40,10 +45,14 @@ public class RoverController {
         int newXPos = rover.getXPos() + deltaX;
         int newYPos = rover.getYPos() + deltaY;
 
-        if(validCoordinates(newXPos, newYPos)) {
+        Flag result = validCoordinates(newXPos, newYPos);
+
+        if(result == Flag.SUCCESS) {
             rover.setXPos(newXPos);
             rover.setYPos(newYPos);
         }
+
+        return result;
     }
 
     public void rotateRoverRight(Rover rover) {
@@ -64,9 +73,12 @@ public class RoverController {
         }
     }
 
-    private boolean validCoordinates(int xPos, int yPos) {
-        return coordinatesAreWithinBoundaries(xPos, yPos)
-                && coordinatesAreUnique(xPos, yPos);
+    private Flag validCoordinates(int xPos, int yPos) {
+        if(!coordinatesAreWithinBoundaries(xPos, yPos))
+            return Flag.COORD_OUT_OF_BOUNDS;
+        if(!coordinatesAreUnique(xPos, yPos))
+            return Flag.COORD_NOT_UNIQUE;
+        return Flag.SUCCESS;
     }
 
     private boolean coordinatesAreWithinBoundaries(int xPos, int yPos) {
