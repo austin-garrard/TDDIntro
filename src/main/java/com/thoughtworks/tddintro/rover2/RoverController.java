@@ -37,7 +37,7 @@ public class RoverController {
 
     private boolean coordinatesAreUnique(int xPos, int yPos) {
         for(Rover rover : rovers)
-            if(rover.getXPos() == xPos || rover.getYPos() == yPos)
+            if(rover.getXPos() == xPos && rover.getYPos() == yPos)
                 return false;
         return true;
     }
