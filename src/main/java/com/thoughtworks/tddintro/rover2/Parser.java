@@ -15,10 +15,12 @@ public class Parser {
 
     private GridMap map;
     private List<Rover> rovers;
+    private List<String> commands;
 
     public Parser() {
         map = null;
         rovers = new ArrayList<>();
+        commands = new ArrayList<>();
     }
 
     public void parse(String fileName) {
@@ -42,5 +44,9 @@ public class Parser {
 
     public List<Rover> getRovers() {
         return rovers;
+    }
+
+    public List<String> getCommands() {
+        return commands;
     }
 }

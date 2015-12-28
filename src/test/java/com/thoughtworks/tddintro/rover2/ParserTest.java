@@ -30,21 +30,6 @@ public class ParserTest {
     }
 
     @Test
-    @Ignore
-    public void testTest() {
-        try {
-            Scanner fileScanner = new Scanner(new BufferedReader(new FileReader("src/test/resources/RoverInput-Default.txt")));
-
-            while(fileScanner.hasNextLine()) {
-                System.out.println(fileScanner.nextLine());
-            }
-        }
-        catch(java.io.FileNotFoundException e) {
-            System.out.println("file not found");
-        }
-    }
-
-    @Test
     public void shouldReturnNullGridMapWhenNoFileHasBeenParsed() {
         GridMap map = parser.getGridMap();
 
@@ -56,6 +41,13 @@ public class ParserTest {
         List<Rover> rovers = parser.getRovers();
 
         assertThat(rovers.size(), is(0));
+    }
+
+    @Test
+    public void shouldReturnEmptyCommandsWhenNoFileHasBeenParsed() {
+        List<String> commands = parser.getCommands();
+
+        assertThat(commands.size(), is(0));
     }
 
     @Test
@@ -84,6 +76,12 @@ public class ParserTest {
 
         assertThat(map.getYMax(), is(10));
     }
+
+    @Test
+    public void shouldReturnRoverListWhenFileHasBeenSuccessfullyParsed() {
+
+    }
+
 
 
 
