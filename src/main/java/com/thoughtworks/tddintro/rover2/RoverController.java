@@ -40,6 +40,24 @@ public class RoverController {
         rover.setYPos(rover.getYPos() + deltaY);
     }
 
+    public void rotateRoverRight(Rover rover) {
+        switch(rover.getOrientation()) {
+            case N: rover.setOrientation(Rover.Orientation.E); break;
+            case E: rover.setOrientation(Rover.Orientation.S); break;
+            case S: rover.setOrientation(Rover.Orientation.W); break;
+            case W: rover.setOrientation(Rover.Orientation.N); break;
+        }
+    }
+
+    public void rotateRoverLeft(Rover rover) {
+        switch(rover.getOrientation()) {
+            case N: rover.setOrientation(Rover.Orientation.W); break;
+            case E: rover.setOrientation(Rover.Orientation.N); break;
+            case S: rover.setOrientation(Rover.Orientation.E); break;
+            case W: rover.setOrientation(Rover.Orientation.S); break;
+        }
+    }
+
     private boolean validCoordinates(int xPos, int yPos) {
         return coordinatesAreWithinBoundaries(xPos, yPos)
                 && coordinatesAreUnique(xPos, yPos);

@@ -99,16 +99,80 @@ public class RoverControllerTest {
         assertThat(myRover.getXPos(), is(originalXPos-1));
     }
 
-
-
     @Test
-    @Ignore
-    public void shouldRotateARoverClockwiseWhenARotateRightCommandIsGiven() {
+    public void shouldRotateARoverNorthToEastWhenARotateRightCommandIsGiven() {
+        myRover.setOrientation(Rover.Orientation.N);
 
+        roverController.rotateRoverRight(myRover);
+
+        assertThat(myRover.getOrientation(), is(Rover.Orientation.E));
     }
 
     @Test
-    @Ignore
+    public void shouldRotateARoverEastToSouthWhenARotateRightCommandIsGiven() {
+        myRover.setOrientation(Rover.Orientation.E);
+
+        roverController.rotateRoverRight(myRover);
+
+        assertThat(myRover.getOrientation(), is(Rover.Orientation.S));
+    }
+
+    @Test
+    public void shouldRotateARoverSouthToWestWhenARotateRightCommandIsGiven() {
+        myRover.setOrientation(Rover.Orientation.S);
+
+        roverController.rotateRoverRight(myRover);
+
+        assertThat(myRover.getOrientation(), is(Rover.Orientation.W));
+    }
+
+    @Test
+    public void shouldRotateARoverWestToNorthWhenARotateRightCommandIsGiven() {
+        myRover.setOrientation(Rover.Orientation.W);
+
+        roverController.rotateRoverRight(myRover);
+
+        assertThat(myRover.getOrientation(), is(Rover.Orientation.N));
+    }
+
+    @Test
+    public void shouldRotateARoverNorthToWestWhenARotateLeftCommandIsGiven() {
+        myRover.setOrientation(Rover.Orientation.N);
+
+        roverController.rotateRoverLeft(myRover);
+
+        assertThat(myRover.getOrientation(), is(Rover.Orientation.W));
+    }
+
+    @Test
+    public void shouldRotateARoverWestToSouthWhenARotateLeftCommandIsGiven() {
+        myRover.setOrientation(Rover.Orientation.W);
+
+        roverController.rotateRoverLeft(myRover);
+
+        assertThat(myRover.getOrientation(), is(Rover.Orientation.S));
+    }
+
+    @Test
+    public void shouldRotateARoverSouthToEastWhenARotateLeftCommandIsGiven() {
+        myRover.setOrientation(Rover.Orientation.S);
+
+        roverController.rotateRoverLeft(myRover);
+
+        assertThat(myRover.getOrientation(), is(Rover.Orientation.E));
+    }
+
+    @Test
+    public void shouldRotateARoverEastToNorthWhenARotateLeftCommandIsGiven() {
+        myRover.setOrientation(Rover.Orientation.E);
+
+        roverController.rotateRoverLeft(myRover);
+
+        assertThat(myRover.getOrientation(), is(Rover.Orientation.N));
+    }
+
+
+    @Test
     public void shouldRotateARoverCounterclockwiseWhenARotateLeftCommandIsGiven() {
 
     }
