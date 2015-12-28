@@ -1,5 +1,6 @@
 package com.thoughtworks.tddintro.rover2;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.Before;
 
@@ -13,61 +14,76 @@ import static org.mockito.Mockito.*;
 
 public class RoverControllerTest {
 
+    private RoverController roverController;
+
     @Before
     public void setUp() {
         GridMap map = new GridMap(10, 10);
 
-        List<Rover> initialRovers = new ArrayList<>();
-        initialRovers.add(new Rover(1, 1, Rover.Orientation.N));
-        initialRovers.add(new Rover(5, 5, Rover.Orientation.W));
-        initialRovers.add(new Rover(9, 2, Rover.Orientation.S));
+        List<Rover> rovers = new ArrayList<>();
+        //valid rovers
+        rovers.add(new Rover(1, 1, Rover.Orientation.N));
+        rovers.add(new Rover(5, 5, Rover.Orientation.W));
+        rovers.add(new Rover(9, 2, Rover.Orientation.S));
+        //invalid rovers: boundaries
+        rovers.add(new Rover(-1, 1, Rover.Orientation.N));
+        rovers.add(new Rover(999, 5, Rover.Orientation.N));
+        rovers.add(new Rover(3, -4, Rover.Orientation.N));
+        rovers.add(new Rover(6, 1337, Rover.Orientation.N));
+        //invalid rovers: unique coordinates
+        rovers.add(new Rover(1, 1, Rover.Orientation.N));
+        rovers.add(new Rover(5, 5, Rover.Orientation.N));
+        rovers.add(new Rover(9, 2, Rover.Orientation.N));
 
-        List<Rover> emptyRovers = new ArrayList<>();
+        roverController = new RoverController(map);
+        roverController.addRovers(rovers);
 
     }
 
     @Test
-    public void shouldStoreAMap() {
-
+    public void shouldStoreRoversThatAreWithinTheBoundariesOfTheMap () {
+        assertThat(roverController.numRovers(), is(3));
     }
 
     @Test
-    public void shouldStoreRoversThatAreWithinTheBoundsOfTheMap () {
-
-    }
-
-    @Test
+    @Ignore
     public void shouldStoreRoversThatHaveUniqueCoordinates() {
 
     }
 
     @Test
+    @Ignore
     public void shouldMoveARoverOneUnitForwardInTheDirectionItIsFacingWhenAMoveCommandIsExecuted() {
 
     }
 
     @Test
+    @Ignore
     public void shouldRotateARoverClockwiseWhenARotateRightCommandIsGiven() {
 
     }
 
     @Test
+    @Ignore
     public void shouldRotateARoverCounterclockwiseWhenARotateLeftCommandIsGiven() {
 
     }
 
     @Test
-    public void shouldExecuteAMoveCommandIfTheResultingCoordinatesAreWithinTheBoundsOfTheMap() {
+    @Ignore
+    public void shouldExecuteAMoveCommandIfTheResultingCoordinatesAreWithinTheBoundariesOfTheMap() {
 
     }
 
     @Test
+    @Ignore
     public void shouldExecuteAMoveCommandIfTheResultingCoordinatesAreUnique() {
 
     }
 
 
     @Test
+    @Ignore
     public void shouldStoreCommandsThatHaveBeenExecuted() {
 
     }
