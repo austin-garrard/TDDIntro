@@ -21,7 +21,13 @@ public class RoverController {
     }
 
     public void addRover(Rover rover) {
+        if(validCoordinates(rover.getXPos(), rover.getYPos())) {
+            rovers.add(rover);
+        }
+    }
 
+    private boolean validCoordinates(int xPos, int yPos) {
+        return xPos >= 0 && xPos <= this.map.getXMax() && yPos >= 0 && yPos <= this.map.getYMax();
     }
 
     public int numRovers() {

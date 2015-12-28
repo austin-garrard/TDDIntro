@@ -15,25 +15,17 @@ import static org.mockito.Mockito.*;
 public class RoverControllerTest {
 
     private RoverController roverController;
+    private List<Rover> rovers;
 
     @Before
     public void setUp() {
         GridMap map = new GridMap(10, 10);
 
-        List<Rover> rovers = new ArrayList<>();
+        rovers = new ArrayList<>();
         //valid rovers
-        rovers.add(new Rover(1, 1, Rover.Orientation.N));
+        rovers.add(new Rover(0, 0, Rover.Orientation.N));
         rovers.add(new Rover(5, 5, Rover.Orientation.W));
-        rovers.add(new Rover(9, 2, Rover.Orientation.S));
-        //invalid rovers: boundaries
-        rovers.add(new Rover(-1, 1, Rover.Orientation.N));
-        rovers.add(new Rover(999, 5, Rover.Orientation.N));
-        rovers.add(new Rover(3, -4, Rover.Orientation.N));
-        rovers.add(new Rover(6, 1337, Rover.Orientation.N));
-        //invalid rovers: unique coordinates
-        rovers.add(new Rover(1, 1, Rover.Orientation.N));
-        rovers.add(new Rover(5, 5, Rover.Orientation.N));
-        rovers.add(new Rover(9, 2, Rover.Orientation.N));
+        rovers.add(new Rover(10, 2, Rover.Orientation.S));
 
         roverController = new RoverController(map);
         roverController.addRovers(rovers);
@@ -42,13 +34,24 @@ public class RoverControllerTest {
 
     @Test
     public void shouldStoreRoversThatAreWithinTheBoundariesOfTheMap () {
-        assertThat(roverController.numRovers(), is(3));
+        //invalid rovers: boundaries
+        roverController.addRover(new Rover(-1, 1, Rover.Orientation.N));
+        roverController.addRover(new Rover(11, 5, Rover.Orientation.N));
+        roverController.addRover(new Rover(3, -4, Rover.Orientation.N));
+        roverController.addRover(new Rover(6, 11, Rover.Orientation.N));
+
+        assertThat(roverController.numRovers(), is(rovers.size()));
     }
 
     @Test
     @Ignore
     public void shouldStoreRoversThatHaveUniqueCoordinates() {
+        //invalid rovers: unique coordinates
+        rovers.add(new Rover(1, 1, Rover.Orientation.N));
+        rovers.add(new Rover(5, 5, Rover.Orientation.N));
+        rovers.add(new Rover(9, 2, Rover.Orientation.N));
 
+        assertThat(roverController.numRovers(), is(3));
     }
 
     @Test
