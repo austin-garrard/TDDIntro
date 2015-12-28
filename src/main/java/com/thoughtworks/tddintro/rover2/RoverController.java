@@ -29,6 +29,7 @@ public class RoverController {
     public void moveRover(Rover rover) {
         int deltaX = 0;
         int deltaY = 0;
+
         switch(rover.getOrientation()) {
             case N: deltaY++; break;
             case E: deltaX++; break;
@@ -36,8 +37,13 @@ public class RoverController {
             case W: deltaX--; break;
         }
 
-        rover.setXPos(rover.getXPos() + deltaX);
-        rover.setYPos(rover.getYPos() + deltaY);
+        int newXPos = rover.getXPos() + deltaX;
+        int newYPos = rover.getYPos() + deltaY;
+
+        if(validCoordinates(newXPos, newYPos)) {
+            rover.setXPos(newXPos);
+            rover.setYPos(newYPos);
+        }
     }
 
     public void rotateRoverRight(Rover rover) {

@@ -31,8 +31,6 @@ public class RoverControllerTest {
         rovers.add(new Rover(0, 10, Rover.Orientation.W));
         rovers.add(new Rover(10, 10, Rover.Orientation.E));
 
-
-
         roverController = new RoverController(map);
         roverController.addRovers(rovers);
 
@@ -171,16 +169,15 @@ public class RoverControllerTest {
         assertThat(myRover.getOrientation(), is(Rover.Orientation.N));
     }
 
-
     @Test
-    public void shouldRotateARoverCounterclockwiseWhenARotateLeftCommandIsGiven() {
+    public void shouldNotMoveARoverIfTheResultingPositionWouldBeOutsideTheBoundariesOfTheMap() {
+        myRover.setOrientation(Rover.Orientation.W);
 
-    }
+        for(int i = 0; i < 6; i++) {
+            roverController.moveRover(myRover);
+        }
 
-    @Test
-    @Ignore
-    public void shouldExecuteAMoveCommandIfTheResultingCoordinatesAreWithinTheBoundariesOfTheMap() {
-
+        assertThat(myRover.getXPos(), is(0));
     }
 
     @Test
