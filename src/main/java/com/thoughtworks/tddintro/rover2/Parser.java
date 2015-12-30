@@ -30,7 +30,9 @@ public class Parser {
 
         while(fileScanner.hasNextLine()) {
             String roverString = fileScanner.nextLine();
-            parseRover(roverString);
+            result = parseRover(roverString);
+            if(result != Flag.SUCCESS)
+                return result;
 
             String commandsString = fileScanner.nextLine();
             parseCommands(commandsString);
@@ -67,13 +69,34 @@ public class Parser {
         return Flag.SUCCESS;
     }
 
-    private void parseRover(String roverString) {
-        Scanner scanner;
-        scanner = new Scanner(roverString);
-        int xPos = scanner.nextInt();
-        int yPos = scanner.nextInt();
-        Rover.Orientation orientation = Rover.Orientation.valueOf(scanner.next());
+    private Flag parseRover(String roverString) {
+        Scanner scanner = new Scanner(roverString);
+        int xPos, yPos;
+        Rover.Orientation orientation;
+
+        try {
+            xPos = scanner.nextInt();
+            yPos = scanner.nextInt();
+            orientation = Rover.Orientation.valueOf(scanner.next());
+        }
+        catch(InputMismatchException ime) {
+            //no integer found
+            return Flag.INVALID_ROVER;
+        }
+        catch(NoSuchElementException nse) {
+            //input exhausted
+            return Flag.INVALID_ROVER;
+        }
+        catch(IllegalStateException ime) {
+            //Scanner is closed
+            return Flag.INVALID_ROVER;
+        }
+
+        if(xPos < 1 || yPos < 1)
+            return Flag.INVALID_ROVER;
+
         rovers.add(new Rover(xPos, yPos, orientation));
+        return Flag.SUCCESS;
     }
 
     private void parseCommands(String commandsString) {

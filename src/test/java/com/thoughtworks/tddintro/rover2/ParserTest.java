@@ -188,6 +188,18 @@ public class ParserTest {
         assertThat(result, is(Parser.Flag.INVALID_GRID));
     }
 
+    @Test
+    public void shouldNotifyCallerWhenInvalidRoverIsParsed() {
+        String gridString = "5 10\n";
+        String roverString = "-1 2 N\n";
+        String commandString = "LMLMLMLMM\n";
+        BufferedReader bufferedReader = readerForString(gridString + roverString + commandString);
+
+        Parser.Flag result = parser.parse(bufferedReader);
+
+        assertThat(result, is(Parser.Flag.INVALID_ROVER));
+    }
+
 
     private BufferedReader readerForFile(String fileName) {
         try {
