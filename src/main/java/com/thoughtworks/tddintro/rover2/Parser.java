@@ -39,7 +39,8 @@ public class Parser {
             String roverString = fileScanner.nextLine();
             parseRover(roverString);
 
-            fileScanner.nextLine();
+            String commandsString = fileScanner.nextLine();
+            parseCommands(commandsString);
         }
 
 
@@ -72,5 +73,9 @@ public class Parser {
         int yPos = lineScanner.nextInt();
         Rover.Orientation orientation = Rover.Orientation.valueOf(lineScanner.next());
         rovers.add(new Rover(xPos, yPos, orientation));
+    }
+
+    private void parseCommands(String commandsString) {
+        commands.add(commandsString);
     }
 }

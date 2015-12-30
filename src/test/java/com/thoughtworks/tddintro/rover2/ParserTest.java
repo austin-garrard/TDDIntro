@@ -147,11 +147,31 @@ public class ParserTest {
     }
 
     @Test
-    public void shouldCorrectlyParseRoverCommands() {
+    public void shouldReturnCommandsListWhenFileHasBeenSuccessfullyParsed() {
+        parser.parse(defaultFileName);
 
+        List<String> commands = parser.getCommands();
+
+        assertThat(commands.size(), is(2));
     }
 
+    @Test
+    public void shouldCorrectlyParseFirstRoverCommands() {
+        parser.parse(defaultFileName);
 
+        List<String> commands = parser.getCommands();
+
+        assertThat(commands.get(0), is("LMLMLMLMM"));
+    }
+
+    @Test
+    public void shouldCorrectlyParseSecondRoverCommands() {
+        parser.parse(defaultFileName);
+
+        List<String> commands = parser.getCommands();
+
+        assertThat(commands.get(1), is("MMRMMRMRRM"));
+    }
 
 
     @Test
