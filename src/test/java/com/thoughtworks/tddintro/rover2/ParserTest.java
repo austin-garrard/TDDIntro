@@ -19,7 +19,7 @@ import java.util.Scanner;
 public class ParserTest {
 
     private String defaultFileName;
-    private BufferedReader defaultFileReader;
+    private Reader defaultFileReader;
     private Parser parser;
 
     @Before
@@ -181,9 +181,9 @@ public class ParserTest {
         String gridString = "-5 10\n";
         String roverString = "1 2 N\n";
         String commandString = "LMLMLMLMM\n";
-        BufferedReader bufferedReader = readerForString(gridString + roverString + commandString);
+        Reader reader = readerForString(gridString + roverString + commandString);
 
-        Parser.Flag result = parser.parse(bufferedReader);
+        Parser.Flag result = parser.parse(reader);
 
         assertThat(result, is(Parser.Flag.INVALID_GRID));
     }
@@ -193,9 +193,9 @@ public class ParserTest {
         String gridString = "5 10\n";
         String roverString = "-1 2 N\n";
         String commandString = "LMLMLMLMM\n";
-        BufferedReader bufferedReader = readerForString(gridString + roverString + commandString);
+        Reader reader = readerForString(gridString + roverString + commandString);
 
-        Parser.Flag result = parser.parse(bufferedReader);
+        Parser.Flag result = parser.parse(reader);
 
         assertThat(result, is(Parser.Flag.INVALID_ROVER));
     }
@@ -205,25 +205,25 @@ public class ParserTest {
         String gridString = "5 10\n";
         String roverString = "1 2 N\n";
         String commandString = "AMLMLMLMM\n";
-        BufferedReader bufferedReader = readerForString(gridString + roverString + commandString);
+        Readable reader = readerForString(gridString + roverString + commandString);
 
-        Parser.Flag result = parser.parse(bufferedReader);
+        Parser.Flag result = parser.parse(reader);
 
         assertThat(result, is(Parser.Flag.INVALID_COMMAND));
     }
 
 
-    private BufferedReader readerForFile(String fileName) {
+    private Reader readerForFile(String fileName) {
         try {
-            return new BufferedReader(new FileReader(fileName));
+            return new FileReader(fileName);
         }
         catch(FileNotFoundException e) {
             return null;
         }
     }
 
-    private BufferedReader readerForString(String string) {
-        return new BufferedReader(new StringReader(string));
+    private Reader readerForString(String string) {
+        return new StringReader(string);
     }
 
 }

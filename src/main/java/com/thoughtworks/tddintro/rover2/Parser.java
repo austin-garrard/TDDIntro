@@ -19,7 +19,7 @@ public class Parser {
         commands = new ArrayList<>();
     }
 
-    public Flag parse(BufferedReader file) {
+    public Flag parse(Readable file) {
         Scanner fileScanner = new Scanner(file);
         Flag result;
 
