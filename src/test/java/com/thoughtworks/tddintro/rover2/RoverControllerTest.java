@@ -238,9 +238,13 @@ public class RoverControllerTest {
 
 
     @Test
-    @Ignore
-    public void shouldStoreCommandsThatHaveBeenExecuted() {
+    public void shouldExecuteMultipleCommandIssuedAtOnce() {
+        String commands = "LMLMLM";
+        roverController.executeCommands(myRover, commands);
 
+        assertThat(myRover.getXPos(), is(6));
+        assertThat(myRover.getYPos(), is(5));
     }
+
 
 }

@@ -31,6 +31,22 @@ public class RoverController {
         }
     }
 
+    public void executeCommands(Rover rover, String commands) {
+        for(int i = 0; i < commands.length(); i++) {
+            char command = commands.charAt(i);
+
+            if(command == 'L') {
+                rotateRoverLeft(rover);
+            }
+            else if(command == 'R') {
+                rotateRoverRight(rover);
+            }
+            else if(command == 'M') {
+                moveRover(rover);
+            }
+        }
+    }
+
     public Flag moveRover(Rover rover) {
         int deltaX = 0;
         int deltaY = 0;
