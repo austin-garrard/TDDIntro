@@ -20,9 +20,9 @@ public class Main {
             return;
 
         Parser parser = new Parser();
-        Parser.Flag result = parser.parse(file);
-        if (result != Parser.Flag.SUCCESS) {
-            printResult(result);
+        Parser.Flag parseResult = parser.parse(file);
+        if (parseResult != Parser.Flag.SUCCESS) {
+            printParseResult(parseResult);
             return;
         }
 
@@ -34,7 +34,12 @@ public class Main {
         roverController.addRovers(rovers);
 
         for(int i = 0; i < rovers.size(); i++) {
-            roverController.executeCommands(rovers.get(i), commands.get(i));
+            RoverController.Flag executionResult;
+            executionResult = roverController.executeCommands(rovers.get(i), commands.get(i));
+            if(executionResult != RoverController.Flag.SUCCESS) {
+                printExecutionResult(executionResult);
+                return;
+            }
         }
 
         for(Rover rover : rovers) {
@@ -54,7 +59,7 @@ public class Main {
         return file;
     }
 
-    private static void printResult(Parser.Flag result) {
+    private static void printParseResult(Parser.Flag result) {
         if(result == Parser.Flag.INVALID_GRID) {
             System.out.println("File error: Invalid grid dimensions.");
         }
@@ -63,6 +68,15 @@ public class Main {
         }
         else if (result == Parser.Flag.INVALID_COMMAND) {
             System.out.println("File error: Invalid command.");
+        }
+    }
+
+    private static void printExecutionResult(RoverController.Flag result) {
+        if(result == RoverController.Flag.COORD_OUT_OF_BOUNDS) {
+            System.out.println("Command error: rover attempted to go out of bounds.");
+        }
+        else if(result == RoverController.Flag.COORD_NOT_UNIQUE) {
+            System.out.println("Command error: rover attempted to move on top of another rover.");
         }
     }
 }
