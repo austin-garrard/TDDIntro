@@ -4,6 +4,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.Before;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,15 +22,24 @@ import java.util.Scanner;
 public class ParserTest {
 
     private String defaultFileName;
+    private BufferedReader defaultFileReader;
     private Parser parser;
 
     @Before
     public void setUp() {
         defaultFileName = "src/test/resources/RoverInput-Default.txt";
+        defaultFileReader = readerForFile(defaultFileName);
         parser = new Parser();
     }
 
-
+    private BufferedReader readerForFile(String fileName) {
+        try {
+            return new BufferedReader(new FileReader(fileName));
+        }
+        catch(FileNotFoundException e) {
+            return null;
+        }
+    }
 
     @Test
     public void shouldReturnNullGridMapWhenNoFileHasBeenParsed() {
@@ -58,7 +68,7 @@ public class ParserTest {
 
     @Test
     public void shouldReturnGridMapWhenFileHasBeenSuccessfullyParsed() {
-        parser.parse(defaultFileName);
+        parser.parse(defaultFileReader);
 
         GridMap map = parser.getGridMap();
 
@@ -67,7 +77,7 @@ public class ParserTest {
 
     @Test
     public void shouldCorrectlyParseGridMapXMax() {
-        parser.parse(defaultFileName);
+        parser.parse(defaultFileReader);
 
         GridMap map = parser.getGridMap();
 
@@ -76,7 +86,7 @@ public class ParserTest {
 
     @Test
     public void shouldCorrectlyParseGridMapYMax() {
-        parser.parse(defaultFileName);
+        parser.parse(defaultFileReader);
 
         GridMap map = parser.getGridMap();
 
@@ -85,7 +95,7 @@ public class ParserTest {
 
     @Test
     public void shouldReturnRoverListWhenFileHasBeenSuccessfullyParsed() {
-        parser.parse(defaultFileName);
+        parser.parse(defaultFileReader);
 
         List<Rover> rovers = parser.getRovers();
 
@@ -94,7 +104,7 @@ public class ParserTest {
 
     @Test
     public void shouldCorrectlyParseFirstRoverStartingXPosition() {
-        parser.parse(defaultFileName);
+        parser.parse(defaultFileReader);
 
         List<Rover> rovers = parser.getRovers();
 
@@ -103,7 +113,7 @@ public class ParserTest {
 
     @Test
     public void shouldCorrectlyParseFirstRoverStartingYPosition() {
-        parser.parse(defaultFileName);
+        parser.parse(defaultFileReader);
 
         List<Rover> rovers = parser.getRovers();
 
@@ -112,7 +122,7 @@ public class ParserTest {
 
     @Test
     public void shouldCorrectlyParseFirstRoverStartingOrientation() {
-        parser.parse(defaultFileName);
+        parser.parse(defaultFileReader);
 
         List<Rover> rovers = parser.getRovers();
 
@@ -121,7 +131,7 @@ public class ParserTest {
 
     @Test
     public void shouldCorrectlyParseSecondRoverStartingXPosition() {
-        parser.parse(defaultFileName);
+        parser.parse(defaultFileReader);
 
         List<Rover> rovers = parser.getRovers();
 
@@ -130,7 +140,7 @@ public class ParserTest {
 
     @Test
     public void shouldCorrectlyParseSecondRoverStartingYPosition() {
-        parser.parse(defaultFileName);
+        parser.parse(defaultFileReader);
 
         List<Rover> rovers = parser.getRovers();
 
@@ -139,7 +149,7 @@ public class ParserTest {
 
     @Test
     public void shouldCorrectlyParseSecondROverStartingOrientation() {
-        parser.parse(defaultFileName);
+        parser.parse(defaultFileReader);
 
         List<Rover> rovers = parser.getRovers();
 
@@ -148,7 +158,7 @@ public class ParserTest {
 
     @Test
     public void shouldReturnCommandsListWhenFileHasBeenSuccessfullyParsed() {
-        parser.parse(defaultFileName);
+        parser.parse(defaultFileReader);
 
         List<String> commands = parser.getCommands();
 
@@ -157,7 +167,7 @@ public class ParserTest {
 
     @Test
     public void shouldCorrectlyParseFirstRoverCommands() {
-        parser.parse(defaultFileName);
+        parser.parse(defaultFileReader);
 
         List<String> commands = parser.getCommands();
 
@@ -166,7 +176,7 @@ public class ParserTest {
 
     @Test
     public void shouldCorrectlyParseSecondRoverCommands() {
-        parser.parse(defaultFileName);
+        parser.parse(defaultFileReader);
 
         List<String> commands = parser.getCommands();
 

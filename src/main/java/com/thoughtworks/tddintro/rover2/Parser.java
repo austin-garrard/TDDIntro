@@ -23,15 +23,8 @@ public class Parser {
         commands = new ArrayList<>();
     }
 
-    public void parse(String fileName) {
-        Scanner fileScanner;
-
-        try {
-            fileScanner = new Scanner(new BufferedReader(new FileReader(fileName)));
-        }
-        catch(FileNotFoundException e) {
-            return;
-        }
+    public void parse(BufferedReader file) {
+        Scanner fileScanner = new Scanner(file);
 
         parseGrid(fileScanner);
 
