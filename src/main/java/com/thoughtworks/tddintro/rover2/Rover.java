@@ -37,6 +37,19 @@ public class Rover {
         this.orientation = orientation;
     }
 
+    public String toString() {
+        String me = String.format("%d %d ", xPos, yPos);
+        if(orientation == Orientation.N)
+            me += "N";
+        if(orientation == Orientation.E)
+            me += "E";
+        if(orientation == Orientation.S)
+            me += "S";
+        if(orientation == Orientation.W)
+            me += "W";
+        return me;
+    }
+
     private int xPos;
     private int yPos;
     private Orientation orientation;
