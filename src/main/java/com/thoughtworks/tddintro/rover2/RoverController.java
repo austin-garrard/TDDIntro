@@ -31,7 +31,7 @@ public class RoverController {
         }
     }
 
-    public void executeCommands(Rover rover, String commands) {
+    public Flag executeCommands(Rover rover, String commands) {
         for(int i = 0; i < commands.length(); i++) {
             char command = commands.charAt(i);
 
@@ -42,9 +42,13 @@ public class RoverController {
                 rotateRoverRight(rover);
             }
             else if(command == 'M') {
-                moveRover(rover);
+                Flag result = moveRover(rover);
+                if(result != Flag.SUCCESS)
+                    return result;
             }
         }
+
+        return Flag.SUCCESS;
     }
 
     public Flag moveRover(Rover rover) {

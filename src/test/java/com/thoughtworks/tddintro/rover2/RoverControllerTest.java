@@ -246,5 +246,22 @@ public class RoverControllerTest {
         assertThat(myRover.getYPos(), is(5));
     }
 
+    @Test
+    public void shouldNotifyCallerOfOutOfBoundsCoordinatesDuringExecutionOfMultipleCommands() {
+        String commands = "MMMMMMMMMMMM";
+
+        RoverController.Flag result = roverController.executeCommands(myRover, commands);
+
+        assertThat(result, is(RoverController.Flag.COORD_OUT_OF_BOUNDS));
+    }
+
+    @Test
+    public void shouldNotifyCallerOfNonUniqueCoordinatesDuringExecutionOfMultipleCommands() {
+        String commands = "MMMMMRMMMMM";
+
+        RoverController.Flag result = roverController.executeCommands(myRover, commands);
+
+        assertThat(result, is(RoverController.Flag.COORD_NOT_UNIQUE));
+    }
 
 }
