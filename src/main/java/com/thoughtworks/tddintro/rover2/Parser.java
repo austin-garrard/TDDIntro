@@ -26,7 +26,8 @@ public class Parser {
     public void parse(BufferedReader file) {
         Scanner fileScanner = new Scanner(file);
 
-        parseGrid(fileScanner);
+        String gridString = fileScanner.nextLine();
+        parseGrid(gridString);
 
         while(fileScanner.hasNextLine()) {
             String roverString = fileScanner.nextLine();
@@ -52,11 +53,11 @@ public class Parser {
     }
 
 
-    private void parseGrid(Scanner fileScanner) {
-        int xMax = fileScanner.nextInt();
-        int yMax = fileScanner.nextInt();
+    private void parseGrid(String gridString) {
+        Scanner scanner = new Scanner(gridString);
+        int xMax = scanner.nextInt();
+        int yMax = scanner.nextInt();
         map = new GridMap(xMax, yMax);
-        fileScanner.nextLine();
     }
 
     private void parseRover(String roverString) {
