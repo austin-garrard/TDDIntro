@@ -33,9 +33,16 @@ public class Parser {
             return;
         }
 
-        int xMax = fileScanner.nextInt();
-        int yMax = fileScanner.nextInt();
-        map = new GridMap(xMax, yMax);
+        parseGrid(fileScanner);
+
+        while(fileScanner.hasNextLine()) {
+            String roverString = fileScanner.nextLine();
+            parseRover(roverString);
+
+            fileScanner.nextLine();
+        }
+
+
     }
 
     public GridMap getGridMap() {
@@ -48,5 +55,22 @@ public class Parser {
 
     public List<String> getCommands() {
         return commands;
+    }
+
+
+    private void parseGrid(Scanner fileScanner) {
+        int xMax = fileScanner.nextInt();
+        int yMax = fileScanner.nextInt();
+        map = new GridMap(xMax, yMax);
+        fileScanner.nextLine();
+    }
+
+    private void parseRover(String roverString) {
+        Scanner lineScanner;
+        lineScanner = new Scanner(roverString);
+        int xPos = lineScanner.nextInt();
+        int yPos = lineScanner.nextInt();
+        Rover.Orientation orientation = Rover.Orientation.valueOf(lineScanner.next());
+        rovers.add(new Rover(xPos, yPos, orientation));
     }
 }

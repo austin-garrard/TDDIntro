@@ -29,6 +29,8 @@ public class ParserTest {
         parser = new Parser();
     }
 
+
+
     @Test
     public void shouldReturnNullGridMapWhenNoFileHasBeenParsed() {
         GridMap map = parser.getGridMap();
@@ -49,6 +51,10 @@ public class ParserTest {
 
         assertThat(commands.size(), is(0));
     }
+
+
+
+    /** Correct behavior given expected input. Uses RoverInput-Default.txt **/
 
     @Test
     public void shouldReturnGridMapWhenFileHasBeenSuccessfullyParsed() {
@@ -79,6 +85,69 @@ public class ParserTest {
 
     @Test
     public void shouldReturnRoverListWhenFileHasBeenSuccessfullyParsed() {
+        parser.parse(defaultFileName);
+
+        List<Rover> rovers = parser.getRovers();
+
+        assertThat(rovers.size(), is(2));
+    }
+
+    @Test
+    public void shouldCorrectlyParseFirstRoverStartingXPosition() {
+        parser.parse(defaultFileName);
+
+        List<Rover> rovers = parser.getRovers();
+
+        assertThat(rovers.get(0).getXPos(), is(1));
+    }
+
+    @Test
+    public void shouldCorrectlyParseFirstRoverStartingYPosition() {
+        parser.parse(defaultFileName);
+
+        List<Rover> rovers = parser.getRovers();
+
+        assertThat(rovers.get(0).getYPos(), is(2));
+    }
+
+    @Test
+    public void shouldCorrectlyParseFirstRoverStartingOrientation() {
+        parser.parse(defaultFileName);
+
+        List<Rover> rovers = parser.getRovers();
+
+        assertThat(rovers.get(0).getOrientation(), is(Rover.Orientation.N));
+    }
+
+    @Test
+    public void shouldCorrectlyParseSecondRoverStartingXPosition() {
+        parser.parse(defaultFileName);
+
+        List<Rover> rovers = parser.getRovers();
+
+        assertThat(rovers.get(1).getXPos(), is(3));
+    }
+
+    @Test
+    public void shouldCorrectlyParseSecondRoverStartingYPosition() {
+        parser.parse(defaultFileName);
+
+        List<Rover> rovers = parser.getRovers();
+
+        assertThat(rovers.get(1).getYPos(), is(3));
+    }
+
+    @Test
+    public void shouldCorrectlyParseSecondROverStartingOrientation() {
+        parser.parse(defaultFileName);
+
+        List<Rover> rovers = parser.getRovers();
+
+        assertThat(rovers.get(1).getOrientation(), is(Rover.Orientation.E));
+    }
+
+    @Test
+    public void shouldCorrectlyParseRoverCommands() {
 
     }
 
