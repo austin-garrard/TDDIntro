@@ -1,11 +1,6 @@
 package com.thoughtworks.tddintro.rover2;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.InputMismatchException;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import java.util.ArrayList;
@@ -36,8 +31,26 @@ public class Parser {
             String commandsString = fileScanner.nextLine();
             parseCommands(commandsString);
         }
+    }
 
+    private void parseGrid(String gridString) {
+        Scanner scanner = new Scanner(gridString);
+        int xMax = scanner.nextInt();
+        int yMax = scanner.nextInt();
+        map = new GridMap(xMax, yMax);
+    }
 
+    private void parseRover(String roverString) {
+        Scanner scanner;
+        scanner = new Scanner(roverString);
+        int xPos = scanner.nextInt();
+        int yPos = scanner.nextInt();
+        Rover.Orientation orientation = Rover.Orientation.valueOf(scanner.next());
+        rovers.add(new Rover(xPos, yPos, orientation));
+    }
+
+    private void parseCommands(String commandsString) {
+        commands.add(commandsString);
     }
 
     public GridMap getGridMap() {
@@ -53,23 +66,5 @@ public class Parser {
     }
 
 
-    private void parseGrid(String gridString) {
-        Scanner scanner = new Scanner(gridString);
-        int xMax = scanner.nextInt();
-        int yMax = scanner.nextInt();
-        map = new GridMap(xMax, yMax);
-    }
 
-    private void parseRover(String roverString) {
-        Scanner lineScanner;
-        lineScanner = new Scanner(roverString);
-        int xPos = lineScanner.nextInt();
-        int yPos = lineScanner.nextInt();
-        Rover.Orientation orientation = Rover.Orientation.valueOf(lineScanner.next());
-        rovers.add(new Rover(xPos, yPos, orientation));
-    }
-
-    private void parseCommands(String commandsString) {
-        commands.add(commandsString);
-    }
 }
