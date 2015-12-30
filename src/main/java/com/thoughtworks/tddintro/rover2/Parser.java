@@ -1,12 +1,13 @@
 package com.thoughtworks.tddintro.rover2;
 
 import java.io.BufferedReader;
-import java.util.Scanner;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Parser {
+
+    public enum Flag {
+        SUCCESS, INVALID_GRID, INVALID_ROVER, INVALID_COMMAND
+    }
 
     private GridMap map;
     private List<Rover> rovers;
@@ -18,11 +19,14 @@ public class Parser {
         commands = new ArrayList<>();
     }
 
-    public void parse(BufferedReader file) {
+    public Flag parse(BufferedReader file) {
         Scanner fileScanner = new Scanner(file);
+        Flag result;
 
         String gridString = fileScanner.nextLine();
-        parseGrid(gridString);
+        result = parseGrid(gridString);
+        if(result != Flag.SUCCESS)
+            return result;
 
         while(fileScanner.hasNextLine()) {
             String roverString = fileScanner.nextLine();
@@ -31,13 +35,36 @@ public class Parser {
             String commandsString = fileScanner.nextLine();
             parseCommands(commandsString);
         }
+
+        return Flag.SUCCESS;
     }
 
-    private void parseGrid(String gridString) {
+    private Flag parseGrid(String gridString) {
         Scanner scanner = new Scanner(gridString);
-        int xMax = scanner.nextInt();
-        int yMax = scanner.nextInt();
+        int xMax, yMax;
+
+        try {
+            xMax = scanner.nextInt();
+            yMax = scanner.nextInt();
+        }
+        catch(InputMismatchException ime) {
+            //no integer found
+            return Flag.INVALID_GRID;
+        }
+        catch(NoSuchElementException nse) {
+            //input exhausted
+            return Flag.INVALID_GRID;
+        }
+        catch(IllegalStateException ime) {
+            //Scanner is closed
+            return Flag.INVALID_GRID;
+        }
+
+        if(xMax < 1 || yMax < 1)
+            return Flag.INVALID_GRID;
+
         map = new GridMap(xMax, yMax);
+        return Flag.SUCCESS;
     }
 
     private void parseRover(String roverString) {

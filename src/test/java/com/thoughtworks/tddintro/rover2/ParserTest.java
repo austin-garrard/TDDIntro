@@ -4,16 +4,13 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.Before;
 
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
@@ -32,14 +29,7 @@ public class ParserTest {
         parser = new Parser();
     }
 
-    private BufferedReader readerForFile(String fileName) {
-        try {
-            return new BufferedReader(new FileReader(fileName));
-        }
-        catch(FileNotFoundException e) {
-            return null;
-        }
-    }
+
 
     @Test
     public void shouldReturnNullGridMapWhenNoFileHasBeenParsed() {
@@ -64,7 +54,7 @@ public class ParserTest {
 
 
 
-    /** Correct behavior given expected input. Uses RoverInput-Default.txt **/
+    /** Behavior given expected input. Uses RoverInput-Default.txt **/
 
     @Test
     public void shouldReturnGridMapWhenFileHasBeenSuccessfullyParsed() {
@@ -184,12 +174,32 @@ public class ParserTest {
     }
 
 
-    @Test
-    @Ignore
-    public void shouldReturnNullGridMapWhenErrorsOccurDuringParse() {
 
+    /** Behavior under various error conditions **/
+    @Test
+    public void shouldNotifyCallerWhenInvalidGridIsParsed () {
+        String gridString = "-5 10\n";
+        String roverString = "1 2 N\n";
+        String commandString = "LMLMLMLMM\n";
+        BufferedReader bufferedReader = readerForString(gridString + roverString + commandString);
+
+        Parser.Flag result = parser.parse(bufferedReader);
+
+        assertThat(result, is(Parser.Flag.INVALID_GRID));
     }
 
 
+    private BufferedReader readerForFile(String fileName) {
+        try {
+            return new BufferedReader(new FileReader(fileName));
+        }
+        catch(FileNotFoundException e) {
+            return null;
+        }
+    }
+
+    private BufferedReader readerForString(String string) {
+        return new BufferedReader(new StringReader(string));
+    }
 
 }
