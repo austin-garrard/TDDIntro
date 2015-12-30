@@ -23,7 +23,7 @@ public class ParserTest {
     private Parser parser;
 
     @Before
-    public void setUp() {
+    public void setUp() throws FileNotFoundException{
         defaultFileName = "src/test/resources/RoverInput-Default.txt";
         defaultFileReader = readerForFile(defaultFileName);
         parser = new Parser();
@@ -198,6 +198,18 @@ public class ParserTest {
         Parser.Flag result = parser.parse(bufferedReader);
 
         assertThat(result, is(Parser.Flag.INVALID_ROVER));
+    }
+
+    @Test
+    public void shouldNotifyCallerWhenInvalidCommandIsParsed() {
+        String gridString = "5 10\n";
+        String roverString = "1 2 N\n";
+        String commandString = "AMLMLMLMM\n";
+        BufferedReader bufferedReader = readerForString(gridString + roverString + commandString);
+
+        Parser.Flag result = parser.parse(bufferedReader);
+
+        assertThat(result, is(Parser.Flag.INVALID_COMMAND));
     }
 
 

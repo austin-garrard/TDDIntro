@@ -35,7 +35,9 @@ public class Parser {
                 return result;
 
             String commandsString = fileScanner.nextLine();
-            parseCommands(commandsString);
+            result = parseCommands(commandsString);
+            if(result != Flag.SUCCESS)
+                return result;
         }
 
         return Flag.SUCCESS;
@@ -99,8 +101,14 @@ public class Parser {
         return Flag.SUCCESS;
     }
 
-    private void parseCommands(String commandsString) {
+    private Flag parseCommands(String commandsString) {
+        for(int i = 0; i < commandsString.length(); i++) {
+            if(commandsString.charAt(i) != 'L' && commandsString.charAt(i) != 'R' && commandsString.charAt(i) != 'M')
+                return Flag.INVALID_COMMAND;
+        }
+
         commands.add(commandsString);
+        return Flag.SUCCESS;
     }
 
     public GridMap getGridMap() {
